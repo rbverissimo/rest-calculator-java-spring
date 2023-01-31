@@ -9,5 +9,9 @@ public class UnsupportedMathOperationException
 	
 	private static final long serialVersionUID = 1L;
 	
+	public UnsupportedMathOperationException(String ex) {
+		super(ex);
+	}
+	
 
 }
