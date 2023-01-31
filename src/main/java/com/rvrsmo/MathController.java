@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rvrsmo.exception.UnsupportedMathOperationException;
+import com.rvrsmo.math.MathOperations;
 import com.rvrsmo.validators.DoubleValidator;
 import com.rvrsmo.validators.NumericValidator;
 
@@ -16,6 +17,7 @@ public class MathController {
 	
 	@SuppressWarnings("unused")
 	private final AtomicLong counter = new AtomicLong();
+	private MathOperations math = new MathOperations();
 	
 	@RequestMapping(value="/sum/{numberOne}/{numberTwo}",
 			method=RequestMethod.GET)
@@ -29,8 +31,8 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return DoubleValidator.convertToDouble(numberOne) 
-				+ DoubleValidator.convertToDouble(numberTwo);
+		return math.sum(DoubleValidator.convertToDouble(numberOne), 
+				DoubleValidator.convertToDouble(numberTwo));
 	}
 	
 
@@ -46,8 +48,8 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return DoubleValidator.convertToDouble(numberOne) 
-				- DoubleValidator.convertToDouble(numberTwo);
+		return math.div(DoubleValidator.convertToDouble(numberOne), 
+				DoubleValidator.convertToDouble(numberTwo));
 	}
 	
 	@RequestMapping(value="/mult/{numberOne}/{numberTwo}",
@@ -62,8 +64,8 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return DoubleValidator.convertToDouble(numberOne) 
-				* DoubleValidator.convertToDouble(numberTwo); 
+		return math.mult(DoubleValidator.convertToDouble(numberOne), 
+				 DoubleValidator.convertToDouble(numberTwo)); 
 	}
 	
 	@RequestMapping(value="/div/{numberOne}/{numberTwo}",
@@ -78,8 +80,8 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return DoubleValidator.convertToDouble(numberOne) 
-				/ DoubleValidator.convertToDouble(numberTwo);  
+		return math.div(DoubleValidator.convertToDouble(numberOne), 
+				 DoubleValidator.convertToDouble(numberTwo));  
 	}
 	
 	
@@ -95,8 +97,8 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return (DoubleValidator.convertToDouble(numberOne) 
-				+ DoubleValidator.convertToDouble(numberTwo))/ 2 ;  
+		return math.med(DoubleValidator.convertToDouble(numberOne), 
+				 DoubleValidator.convertToDouble(numberTwo));  
 	}
 	
 	
@@ -110,7 +112,7 @@ public class MathController {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return Math.sqrt(DoubleValidator.convertToDouble(number)) ;  
+		return math.sqrRoot(DoubleValidator.convertToDouble(number)) ;  
 	}
 	
 	
