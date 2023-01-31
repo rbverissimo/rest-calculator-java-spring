@@ -73,6 +73,37 @@ public class MathController {
 	}
 	
 	
+	@RequestMapping(value="/med/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double med(
+			@PathVariable(value="numberOne") String numberOne,
+			@PathVariable(value="numberTwo") String numberTwo
+			) throws Exception  {
+		
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
+		}
+		return (convertToDouble(numberOne) 
+				+ convertToDouble(numberTwo))/ 2 ;  
+	}
+	
+	
+	@RequestMapping(value="/sqr/{numberOne}",
+			method=RequestMethod.GET)
+	public Double sqrRoot(
+			@PathVariable(value="numberOne") String numberOne
+			) throws Exception  {
+		
+		if(!isNumeric(numberOne)) {
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
+		}
+		return Math.sqrt(convertToDouble(numberOne)) ;  
+	}
+	
+	
+	
 	private boolean isNumeric(String strNumber) {
 		if(strNumber == null) return false;
 		String number = strNumber.replaceAll(",", ".");
