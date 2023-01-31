@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rvrsmo.exception.UnsupportedMathOperationException;
+
 @RestController
 public class MathController {
 	
@@ -16,7 +18,8 @@ public class MathController {
 					throws Exception {
 		
 		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-			throw new Exception();
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
 		}
 		return convertToDouble(numberOne) 
 				+ convertToDouble(numberTwo);
@@ -32,18 +35,41 @@ public class MathController {
 			@PathVariable(value="numberTwo") String numberTwo
 			) throws Exception {
 		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
-			throw new Exception();
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
 		}
 		return convertToDouble(numberOne) 
 				- convertToDouble(numberTwo);
 	}
 	
-	public Double mult() {
-		return 1D; 
+	@RequestMapping(value="/mult/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double mult(
+			@PathVariable(value="numberOne") String numberOne,
+			@PathVariable(value="numberTwo") String numberTwo
+			) throws Exception  {
+		
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
+		}
+		return convertToDouble(numberOne) 
+				* convertToDouble(numberTwo); 
 	}
 	
-	public Double div() {
-		return 1D; 
+	@RequestMapping(value="/div/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double div(
+			@PathVariable(value="numberOne") String numberOne,
+			@PathVariable(value="numberTwo") String numberTwo
+			) throws Exception  {
+		
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new UnsupportedMathOperationException(
+					"Please a set a numeric value");
+		}
+		return convertToDouble(numberOne) 
+				/ convertToDouble(numberTwo);  
 	}
 	
 	
