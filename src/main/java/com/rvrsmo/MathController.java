@@ -25,9 +25,17 @@ public class MathController {
 
 	
 
-
-	public Double sub() {
-		return 1D;
+	@RequestMapping(value="/sub/{numberOne}/{numberTwo}",
+			method=RequestMethod.GET)
+	public Double sub(
+			@PathVariable(value="numberOne") String numberOne,
+			@PathVariable(value="numberTwo") String numberTwo
+			) throws Exception {
+		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new Exception();
+		}
+		return convertToDouble(numberOne) 
+				- convertToDouble(numberTwo);
 	}
 	
 	public Double mult() {
