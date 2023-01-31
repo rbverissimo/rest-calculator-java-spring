@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rvrsmo.exception.UnsupportedMathOperationException;
+import com.rvrsmo.validators.DoubleValidator;
+import com.rvrsmo.validators.NumericValidator;
 
 @RestController
 public class MathController {
@@ -22,29 +24,30 @@ public class MathController {
 			@PathVariable(value="numberTwo") String numberTwo) 
 					throws Exception {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!NumericValidator.isNumeric(numberOne) || 
+				!NumericValidator.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return convertToDouble(numberOne) 
-				+ convertToDouble(numberTwo);
+		return DoubleValidator.convertToDouble(numberOne) 
+				+ DoubleValidator.convertToDouble(numberTwo);
 	}
 	
 
 	
-
 	@RequestMapping(value="/sub/{numberOne}/{numberTwo}",
 			method=RequestMethod.GET)
 	public Double sub(
 			@PathVariable(value="numberOne") String numberOne,
 			@PathVariable(value="numberTwo") String numberTwo
 			) throws Exception {
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!NumericValidator.isNumeric(numberOne) ||
+				!NumericValidator.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return convertToDouble(numberOne) 
-				- convertToDouble(numberTwo);
+		return DoubleValidator.convertToDouble(numberOne) 
+				- DoubleValidator.convertToDouble(numberTwo);
 	}
 	
 	@RequestMapping(value="/mult/{numberOne}/{numberTwo}",
@@ -54,12 +57,13 @@ public class MathController {
 			@PathVariable(value="numberTwo") String numberTwo
 			) throws Exception  {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!NumericValidator.isNumeric(numberOne) || 
+				!NumericValidator.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return convertToDouble(numberOne) 
-				* convertToDouble(numberTwo); 
+		return DoubleValidator.convertToDouble(numberOne) 
+				* DoubleValidator.convertToDouble(numberTwo); 
 	}
 	
 	@RequestMapping(value="/div/{numberOne}/{numberTwo}",
@@ -69,12 +73,13 @@ public class MathController {
 			@PathVariable(value="numberTwo") String numberTwo
 			) throws Exception  {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!NumericValidator.isNumeric(numberOne) || 
+				!NumericValidator.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return convertToDouble(numberOne) 
-				/ convertToDouble(numberTwo);  
+		return DoubleValidator.convertToDouble(numberOne) 
+				/ DoubleValidator.convertToDouble(numberTwo);  
 	}
 	
 	
@@ -85,12 +90,13 @@ public class MathController {
 			@PathVariable(value="numberTwo") String numberTwo
 			) throws Exception  {
 		
-		if(!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+		if(!NumericValidator.isNumeric(numberOne) ||
+				!NumericValidator.isNumeric(numberTwo)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return (convertToDouble(numberOne) 
-				+ convertToDouble(numberTwo))/ 2 ;  
+		return (DoubleValidator.convertToDouble(numberOne) 
+				+ DoubleValidator.convertToDouble(numberTwo))/ 2 ;  
 	}
 	
 	
@@ -100,27 +106,13 @@ public class MathController {
 			@PathVariable(value="number") String number
 			) throws Exception  {
 		
-		if(!isNumeric(number)) {
+		if(!NumericValidator.isNumeric(number)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return Math.sqrt(convertToDouble(number)) ;  
+		return Math.sqrt(DoubleValidator.convertToDouble(number)) ;  
 	}
 	
 	
-	
-	private boolean isNumeric(String strNumber) {
-		if(strNumber == null) return false;
-		String number = strNumber.replaceAll(",", ".");
-		return number.matches("[-+]?[0-9]*\\.?[0-9]+");
-	}
-	
-	
-	private Double convertToDouble(String strNumber) {
-		if(strNumber == null) return 0D;
-		String number = strNumber.replaceAll(",", ".");
-		if(isNumeric(number)) return Double.parseDouble(number);
-		return null; 
-	}
 
 }
