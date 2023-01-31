@@ -1,5 +1,7 @@
 package com.rvrsmo;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +11,9 @@ import com.rvrsmo.exception.UnsupportedMathOperationException;
 
 @RestController
 public class MathController {
+	
+	@SuppressWarnings("unused")
+	private final AtomicLong counter = new AtomicLong();
 	
 	@RequestMapping(value="/sum/{numberOne}/{numberTwo}",
 			method=RequestMethod.GET)
@@ -89,17 +94,17 @@ public class MathController {
 	}
 	
 	
-	@RequestMapping(value="/sqr/{numberOne}",
+	@RequestMapping(value="/sqr/{number}",
 			method=RequestMethod.GET)
 	public Double sqrRoot(
-			@PathVariable(value="numberOne") String numberOne
+			@PathVariable(value="number") String number
 			) throws Exception  {
 		
-		if(!isNumeric(numberOne)) {
+		if(!isNumeric(number)) {
 			throw new UnsupportedMathOperationException(
 					"Please a set a numeric value");
 		}
-		return Math.sqrt(convertToDouble(numberOne)) ;  
+		return Math.sqrt(convertToDouble(number)) ;  
 	}
 	
 	
