@@ -1,4 +1,4 @@
-package com.rvrsmo;
+package com.rvrsmo.controllers;
 
 import java.util.concurrent.atomic.AtomicLong;
 
